@@ -16,7 +16,7 @@ class Agent:
         self.discount = args.discount
         self.norm_clip = args.norm_clip
         self.agent = args.agent
-        self.ddqn = args.agent == 'ddqn' or args.agent == 'edqn'
+        self.ddqn = args.agent == 'ddqn' or args.agent == 'ebql'
         self.ensemble_size = args.ensemble_size
         self.use_target = not args.no_target
 
