@@ -56,7 +56,7 @@ parser.add_argument('--enable-cudnn', action='store_true', help='Enable cuDNN (f
 parser.add_argument('--checkpoint-interval', default=0, help='How often to checkpoint the model, defaults to 0 (never checkpoint)')
 parser.add_argument('--memory', help='Path to save/load the memory from')
 parser.add_argument('--disable-bzip-memory', action='store_true', help='Don\'t zip the memory file. Not recommended (zipping is a bit slower and much, much smaller)')
-parser.add_argument('--agent', choices=['dqn', 'ddqn', 'edqn', 'ensm-dqn', 'maxmin-dqn', 'rainbow', 'rainbow-edqn'])
+parser.add_argument('--agent', choices=['dqn', 'ddqn', 'ebql', 'ensm-dqn', 'maxmin-dqn', 'rainbow', 'rainbow-ebql'])
 parser.add_argument('--no-target', action='store_true', help='')
 parser.add_argument('--ensemble-size', default=5, help='', type=int)
 
@@ -110,7 +110,7 @@ env.train()
 action_space = env.action_space()
 
 # Agent
-if args.agent == 'dqn' or args.agent == 'ddqn' or args.agent == 'edqn' or args.agent == 'ensm-dqn' or args.agent == 'maxmin-dqn':
+if args.agent == 'dqn' or args.agent == 'ddqn' or args.agent == 'ebql' or args.agent == 'ensm-dqn' or args.agent == 'maxmin-dqn':
     args.multi_step = 1
     args.learning_rate = 0.00025
     args.target_update = 10000
@@ -124,7 +124,7 @@ if args.agent == 'dqn' or args.agent == 'ddqn' or args.agent == 'edqn' or args.a
     if args.agent == 'dqn' or args.agent == 'ddqn':
         args.ensemble_size = 1
     agent = dqn.Agent(args, env)
-elif args.agent == 'rainbow' or args.agent == 'rainbow-edqn':
+elif args.agent == 'rainbow' or args.agent == 'rainbow-ebql':
     if args.agent == 'rainbow':
         args.ensemble_size = 1
     agent = rainbow.Agent(args, env)
